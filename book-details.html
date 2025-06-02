@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Buku - Perpustakaan Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigasi -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-gray-800 font-['Playfair_Display']">Perpustakaan Modern</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 transition">Beranda</a>
+                    <a href="books.html" class="nav-link text-gray-700 hover:text-blue-600 transition">Buku</a>
+                    <a href="services.html" class="nav-link text-gray-700 hover:text-blue-600 transition">Layanan</a>
+                    <a href="about.html" class="nav-link text-gray-700 hover:text-blue-600 transition">Tentang Kami</a>
+                    <a href="contact.html" class="nav-link text-gray-700 hover:text-blue-600 transition">Kontak</a>
+                    <div class="auth-buttons ml-4">
+                        <button class="login-btn bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Masuk</button>
+                        <button class="logout-btn hidden border border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 transition">Keluar</button>
+                    </div>
+                </div>
+                <!-- Tombol menu mobile -->
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button p-2 rounded-md hover:bg-gray-100 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Menu mobile -->
+            <div class="md:hidden hidden mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html" class="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Beranda</a>
+                    <a href="books.html" class="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Buku</a>
+                    <a href="services.html" class="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Layanan</a>
+                    <a href="about.html" class="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Tentang Kami</a>
+                    <a href="contact.html" class="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Kontak</a>
+                    <div class="mt-4 space-y-2">
+                        <button class="login-btn w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Masuk</button>
+                        <button class="logout-btn hidden w-full border border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 transition">Keluar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bagian Detail Buku -->
+    <div class="pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+                    <!-- Gambar Buku -->
+                    <div class="col-span-1">
+                        <img id="book-cover" src="images/moon.jpg" alt="Sampul Buku" class="w-full rounded-lg shadow-md">
+                        <div class="mt-6 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Status:</span>
+                                <span id="availability-badge" class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">Tersedia</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Eksemplar:</span>
+                                <span id="book-copies">3/5 tersedia</span>
+                            </div>
+                            <button class="borrow-btn w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Pinjam Buku</button>
+                            <div class="borrow-message hidden mt-4 p-4 rounded-md"></div>
+                        </div>
+                    </div>
+
+                    <!-- Informasi Buku -->
+                    <div class="col-span-2">
+                        <h1 id="book-title" class="text-3xl font-bold text-gray-900 mb-4 font-['Playfair_Display']">Bulan</h1>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-gray-600">Penulis:</span>
+                                <span id="book-author" class="ml-2 font-medium">Tere Liye</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-600">Genre:</span>
+                                <span id="book-genre" class="ml-2">Fiksi</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-600">ISBN:</span>
+                                <span id="book-isbn" class="ml-2">978-602-03-3496-3</span>
+                            </div>
+                            <div>
+                                <span class="text-gray-600">Terbit:</span>
+                                <span id="book-published" class="ml-2">2015</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-semibold mb-2">Deskripsi</h2>
+                                <p id="book-description" class="text-gray-600 leading-relaxed">
+                                    "Bulan" adalah buku kedua dari seri fantasi remaja karya Tere Liye. Cerita ini mengikuti petualangan seorang gadis muda bernama Seli dan teman-temannya saat mereka menjelajahi dunia magis dan menghadapi tantangan luar biasa. Kisah mempesona ini menggabungkan elemen persahabatan, keberanian, dan penemuan jati diri.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Peringkat dan Ulasan -->
+                        <div class="mt-8">
+                            <h2 class="text-xl font-semibold mb-4">Peringkat & Ulasan</h2>
+                            <div class="flex items-center mb-4">
+                                <div class="flex items-center">
+                                    <!-- Bintang Peringkat (contoh) -->
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                    <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                </div>
+                                <span class="ml-2 text-gray-600">4.0 dari 5 (125 ulasan)</span>
+                            </div>
+
+                            <!-- Daftar Ulasan -->
+                            <div class="space-y-6">
+                                <div class="border-t pt-6">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                                <span class="text-gray-600">AS</span> <!-- Inisial Nama Pengulas -->
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <h4 class="text-sm font-medium text-gray-900">Andi Setiawan</h4>
+                                            <div class="flex items-center mt-1">
+                                                <div class="flex items-center">
+                                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                                </div>
+                                                <span class="ml-2 text-sm text-gray-500">5.0</span>
+                                            </div>
+                                            <p class="mt-2 text-sm text-gray-600">
+                                                Buku yang luar biasa, membuat saya terpikat sepanjang cerita. Pengembangan karakternya sangat baik dan ceritanya ditulis dengan sangat apik.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tambah ulasan lain jika perlu -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Perpustakaan Modern</h3>
+                    <p class="text-gray-400">Gerbang Anda menuju pengetahuan dan imajinasi.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tautan Cepat</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Beranda</a></li>
+                        <li><a href="books.html" class="text-gray-400 hover:text-white transition">Buku</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition">Layanan</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition">Tentang Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Kontak</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Jl. Pustaka No. 123</li>
+                        <li>Kota Buku, Negara Literasi 12345</li>
+                        <li>Telepon: (021) 123-4567</li>
+                        <li>Email: info@perpustakaanmodern.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Jam Buka</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Senin - Jumat: 09.00 - 20.00</li>
+                        <li>Sabtu: 10.00 - 18.00</li>
+                        <li>Minggu: 12.00 - 17.00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Perpustakaan Modern. Hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Skrip -->
+    <script>
+        // Data buku (contoh)
+        const booksData = {
+            bulan: {
+                title: "Bulan",
+                author: "Tere Liye",
+                genre: "Fiksi",
+                isbn: "978-602-03-3496-3",
+                published: "2015",
+                description: "\"Bulan\" adalah buku kedua dari seri fantasi remaja karya Tere Liye. Cerita ini mengikuti petualangan seorang gadis muda bernama Seli dan teman-temannya saat mereka menjelajahi dunia magis dan menghadapi tantangan luar biasa. Kisah mempesona ini menggabungkan elemen persahabatan, keberanian, dan penemuan jati diri.",
+                cover: "images/moon.jpg",
+                availableCopies: 3,
+                totalCopies: 5,
+                status: "Tersedia"
+            },
+            hujan: {
+                title: "Hujan",
+                author: "Tere Liye",
+                genre: "Fiksi",
+                isbn: "978-602-03-2478-4",
+                published: "2016",
+                description: "Novel \"Hujan\" mengisahkan tentang Esok dan Lail, dua jiwa yang dipertemukan oleh takdir di tengah bencana alam dahsyat. Kisah cinta, kehilangan, dan harapan di masa depan yang penuh teknologi canggih.",
+                cover: "images/hujan.jpg",
+                availableCopies: 2,
+                totalCopies: 5,
+                status: "Dipesan"
+            },
+            matahari: {
+                title: "Matahari",
+                author: "Tere Liye",
+                genre: "Fiksi",
+                isbn: "978-602-03-3211-2",
+                published: "2016",
+                description: "\"Matahari\" melanjutkan petualangan Raib, Seli, dan Ali di dunia paralel. Mereka harus menghadapi musuh baru dan mengungkap rahasia besar yang mengancam keselamatan semua klan.",
+                cover: "images/matahari.jpg",
+                availableCopies: 0,
+                totalCopies: 5,
+                status: "Tidak Tersedia"
+            },
+            crypto: {
+                title: "Panduan Trading Crypto",
+                author: "Akademi Crypto",
+                genre: "Bisnis",
+                isbn: "978-123-45-6789-0",
+                published: "2023",
+                description: "Buku ini adalah panduan lengkap bagi pemula yang ingin memahami dasar-dasar trading cryptocurrency. Mencakup analisis teknikal, fundamental, dan manajemen risiko.",
+                cover: "images/crypto-trading.jpg",
+                availableCopies: 4,
+                totalCopies: 5,
+                status: "Tersedia"
+            }
+        };
+
+        // Fungsi untuk memuat detail buku berdasarkan parameter URL
+        function loadBookDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const bookKey = params.get('book');
+            const book = booksData[bookKey] || booksData.bulan; // Default ke buku 'bulan' jika tidak ada atau salah
+
+            document.getElementById('book-title').textContent = book.title;
+            document.getElementById('book-author').textContent = book.author;
+            document.getElementById('book-genre').textContent = book.genre;
+            document.getElementById('book-isbn').textContent = book.isbn;
+            document.getElementById('book-published').textContent = book.published;
+            document.getElementById('book-description').textContent = book.description;
+            document.getElementById('book-cover').src = book.cover;
+            document.getElementById('book-cover').alt = `Sampul ${book.title}`;
+            document.getElementById('book-copies').textContent = `${book.availableCopies}/${book.totalCopies} tersedia`;
+            
+            const availabilityBadgeEl = document.getElementById('availability-badge');
+            availabilityBadgeEl.textContent = book.status;
+            availabilityBadgeEl.className = 'px-3 py-1 rounded-full text-sm font-medium'; // Reset class
+            if (book.status === "Tersedia") {
+                availabilityBadgeEl.classList.add('bg-green-100', 'text-green-800');
+            } else if (book.status === "Dipesan") {
+                availabilityBadgeEl.classList.add('bg-yellow-100', 'text-yellow-800');
+            } else {
+                availabilityBadgeEl.classList.add('bg-red-100', 'text-red-800');
+            }
+        }
+
+        // Toggle menu mobile
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Fungsionalitas Login/Logout
+        const loginBtns = document.querySelectorAll('.login-btn');
+        const logoutBtns = document.querySelectorAll('.logout-btn');
+
+        function handleLogin() {
+            loginBtns.forEach(btn => btn.classList.add('hidden'));
+            logoutBtns.forEach(btn => btn.classList.remove('hidden'));
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+
+        function handleLogout() {
+            loginBtns.forEach(btn => btn.classList.remove('hidden'));
+            logoutBtns.forEach(btn => btn.classList.add('hidden'));
+            localStorage.setItem('isLoggedIn', 'false');
+        }
+
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            handleLogin();
+        } else {
+            handleLogout();
+        }
+
+        loginBtns.forEach(btn => btn.addEventListener('click', handleLogin));
+        logoutBtns.forEach(btn => btn.addEventListener('click', handleLogout));
+
+        // Fungsionalitas peminjaman buku
+        const borrowBtn = document.querySelector('.borrow-btn');
+        const borrowMessage = document.querySelector('.borrow-message');
+        const availabilityBadge = document.getElementById('availability-badge'); // Referensi ke elemen badge yang sudah ada
+
+        borrowBtn.addEventListener('click', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                borrowMessage.textContent = 'Silakan masuk untuk meminjam buku';
+                borrowMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                borrowMessage.classList.add('bg-red-100', 'text-red-800');
+                return;
+            }
+            
+            const currentStatus = availabilityBadge.textContent;
+
+            if (currentStatus === 'Tersedia') {
+                borrowMessage.textContent = 'Buku berhasil dipinjam! Silakan ambil dalam 24 jam.';
+                borrowMessage.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                borrowMessage.classList.add('bg-green-100', 'text-green-800');
+                availabilityBadge.textContent = 'Dipesan';
+                availabilityBadge.classList.remove('bg-green-100', 'text-green-800');
+                availabilityBadge.classList.add('bg-yellow-100', 'text-yellow-800');
+                borrowBtn.textContent = 'Batalkan Pesanan';
+            } else if (currentStatus === 'Dipesan') {
+                borrowMessage.textContent = 'Pesanan dibatalkan';
+                borrowMessage.classList.remove('hidden', 'bg-red-100', 'text-red-800');
+                borrowMessage.classList.add('bg-green-100', 'text-green-800');
+                availabilityBadge.textContent = 'Tersedia';
+                availabilityBadge.classList.remove('bg-yellow-100', 'text-yellow-800');
+                availabilityBadge.classList.add('bg-green-100', 'text-green-800');
+                borrowBtn.textContent = 'Pinjam Buku';
+            } else { // Tidak Tersedia
+                 borrowMessage.textContent = 'Buku ini sedang tidak tersedia.';
+                borrowMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800');
+                borrowMessage.classList.add('bg-red-100', 'text-red-800');
+            }
+        });
+        
+        // Muat detail buku saat halaman dimuat
+        loadBookDetails();
+    </script>
+</body>
+</html> 
