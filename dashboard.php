@@ -1,18 +1,10 @@
 <?php
 session_start();
-<<<<<<<< HEAD:user/dashboard.php
-if (!isset($_SESSION['username'])) {
-    header("Location: dashboard.php");
-    exit;
-}
-include "../connection.php";
-========
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
 include "db.php";
->>>>>>>> 7b65834f42efa5c035c094e4006e80986d821856:dashboard.php
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +16,7 @@ include "db.php";
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/main.js" defer></script>
     <script src="js/headerFooter.js" defer></script>
-    <link rel="stylesheet" href="user/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
