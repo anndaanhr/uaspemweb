@@ -22,33 +22,11 @@ if(isset($_SESSION['admin'])){
     <link rel="stylesheet" href="css/main.css">
     <script src="js/sidebar.js" defer></script>
     <script src="js/addBook.js" defer></script>
-    <style>
-        /* Tambahkan style untuk alert message */
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            display: none;
-        }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <div id="sidebar-placeholder"></div>
+        <div class="sidebar" id="sidebar-placeholder"></div>
 
         <!-- Main Content -->
         <div class="main-content">

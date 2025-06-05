@@ -30,7 +30,7 @@ if (!$book) {
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <div id="sidebar-placeholder"></div>
+        <div class="sidebar" id="sidebar-placeholder"></div>
 
         <!-- Main Content -->
         <div class="main-content">
