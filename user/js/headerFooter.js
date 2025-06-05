@@ -8,9 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const menuButton = document.querySelector('.mobile-menu-button');
             const mobileMenu = document.querySelector('.mobile-menu');
 
-            menuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Initialize login system after header is loaded
+            if (typeof initializeAuthUI === 'function') {
+                initializeAuthUI();
+            }
         });
 });
 
