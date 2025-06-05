@@ -1,8 +1,8 @@
 <?php
 session_start();
 $username = "";
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
+if (isset($_SESSION['admin'])) {
+    $username = $_SESSION['admin'];
 } else {
     header('Location: index.php');
     exit;

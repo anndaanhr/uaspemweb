@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['admin'])) {
     header('Location: index.php');
     exit;
 }
@@ -41,7 +41,7 @@ $result = mysqli_query($conn, $query);
                 <div class="user-info">
                     <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Admin">
                     <div>
-                        <h4><?php echo htmlspecialchars($_SESSION['username']); ?></h4>
+                        <h4><?php echo htmlspecialchars($_SESSION['admin']); ?></h4>
                         <p>Administrator</p>
                     </div>
                 </div>

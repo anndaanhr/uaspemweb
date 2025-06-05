@@ -1,18 +1,10 @@
 <?php
 session_start();
-<<<<<<<< HEAD:user/dashboard.php
 if (!isset($_SESSION['username'])) {
     header("Location: dashboard.php");
     exit;
 }
 include "../connection.php";
-========
-if (!isset($_SESSION['login'])) {
-    header("Location: index.php");
-    exit;
-}
-include "db.php";
->>>>>>>> 7b65834f42efa5c035c094e4006e80986d821856:dashboard.php
 ?>
 
 <!DOCTYPE html>
