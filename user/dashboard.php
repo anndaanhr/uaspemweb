@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: dashboard.php");
+if ($_SESSION['role'] !== 'user') {
+    header("Location: ../index.php");
     exit;
 }
-include "../connection.php";
+include '../db.php'
 ?>
 
 <!DOCTYPE html>

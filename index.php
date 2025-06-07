@@ -110,18 +110,16 @@
         <input type="checkbox" id="chk" aria-hidden="true">
 
         <div class="signup">
-            <form>
+            <form action="register.php" method="POST">
                 <label for="chk" aria-hidden="true">Sign up</label>
                 <input type="text" name="username" placeholder="Username" class="form-control" required>
                 <input type="password" name="password" placeholder="Password" class="form-control" required>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control"
-                    required>
                 <button type="submit">Sign up</button>
             </form>
         </div>
 
         <div class="login">
-            <form action="../auth/process_login_user.php" method="POST">
+            <form action="login.php" method="POST">
                 <label for="chk" aria-hidden="true">Login</label>
                 <input type="text" name="username" placeholder="Username" class="form-control" required>
                 <input type="password" name="password" placeholder="Password" class="form-control" required>

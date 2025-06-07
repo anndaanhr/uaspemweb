@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
     exit;
 }
-include '../connection.php';
+include '../db.php';
 
 $id = $_GET['id'];
 $query = "SELECT * FROM books WHERE id = $id";

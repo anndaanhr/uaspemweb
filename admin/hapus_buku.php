@@ -1,11 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) {
-    header('Location: index.php');
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
     exit;
 }
-
-include '../connection.php';
+include '../db.php';
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);

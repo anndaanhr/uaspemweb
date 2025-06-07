@@ -1,14 +1,10 @@
 <?php
 session_start();
-$username = "";
-if (isset($_SESSION['admin'])) {
-    $username = $_SESSION['admin'];
-} else {
-    header('Location: index.php');
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
     exit;
 }
-
-include '../connection.php'; // Pastikan file koneksi ada
+include '../db.php';
 
 $query = "SELECT id, title, author, genre, published_year FROM books";
 $result = mysqli_query($conn, $query);
