@@ -22,7 +22,7 @@ include "../connection.php";
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <div id="header-container"></div>
+    <?php include 'header.php'; ?>
 
     <!-- Bagian Hero -->
     <div class="relative bg-white overflow-hidden">

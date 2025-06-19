@@ -1,5 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+include "../connection.php";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +17,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/main.js" defer></script>
     <script src="js/headerFooter.js" defer></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="bg-gray-50">
     <!-- Header -->
-    <div id="header-container"></div>
+    <?php include 'header.php'; ?>
 
     <!-- Header Buku -->
     <div class="bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl font-bold text-gray-900 text-center font-['Playfair_Display']">Koleksi Buku Kami</h1>
-            <p class="mt-4 text-xl text-gray-600 text-center">Jelajahi koleksi buku kami yang beragam dari berbagai genre</p>
+            <p class="mt-4 text-xl text-gray-600 text-center">Jelajahi koleksi buku kami yang beragam dari berbagai
+                genre</p>
         </div>
     </div>
 
@@ -27,19 +40,24 @@
         <div class="bg-white p-6 rounded-lg shadow-md mb-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                    <label for="search-input" class="block text-sm font-medium text-gray-700 mb-1">Cari Buku (Judul/Penulis)</label>
-                    <input type="text" id="search-input" placeholder="Contoh: Bulan, Tere Liye" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <label for="search-input" class="block text-sm font-medium text-gray-700 mb-1">Cari Buku
+                        (Judul/Penulis)</label>
+                    <input type="text" id="search-input" placeholder="Contoh: Bulan, Tere Liye"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div>
                     <label for="genre-filter" class="block text-sm font-medium text-gray-700 mb-1">Filter Genre</label>
-                    <select id="genre-filter" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <select id="genre-filter"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="">Semua Genre</option>
                         <!-- Opsi genre akan diisi oleh JavaScript -->
                     </select>
                 </div>
                 <div>
-                    <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Filter Status</label>
-                    <select id="status-filter" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Filter
+                        Status</label>
+                    <select id="status-filter"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         <option value="">Semua Status</option>
                         <option value="Tersedia">Tersedia</option>
                         <option value="Dipesan">Dipesan</option>
@@ -56,7 +74,9 @@
                     <h2 class="text-xl font-semibold mb-4">Kategori Populer</h2>
                     <div id="category-filter-buttons" class="space-y-3">
                         <!-- Tombol kategori akan diisi oleh JavaScript -->
-                        <button class="w-full text-left px-4 py-2 text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition category-filter-btn" data-genre="">Semua Kategori</button>
+                        <button
+                            class="w-full text-left px-4 py-2 text-gray-700 bg-gray-100 hover:bg-blue-500 hover:text-white rounded-md transition category-filter-btn"
+                            data-genre="">Semua Kategori</button>
                     </div>
                 </div>
             </div>
@@ -81,14 +101,15 @@
                         </div>
                     </a> -->
                 </div>
-                 <div id="no-results-message" class="hidden col-span-full text-center py-10">
+                <div id="no-results-message" class="hidden col-span-full text-center py-10">
                     <p class="text-xl text-gray-600">Tidak ada buku yang cocok dengan kriteria pencarian Anda.</p>
                 </div>
             </div>
         </div>
     </div>
 
-   <!-- Footer -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 </body>
-</html> 
+
+</html>

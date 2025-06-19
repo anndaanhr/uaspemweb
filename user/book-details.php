@@ -12,7 +12,8 @@
 </head>
 <body class="bg-gray-50">
    <!-- Header -->
-    <div id="header-container"></div>
+    <?php include 'header.php'; ?>
+
 
     <!-- Bagian Detail Buku -->
     <div class="pt-24 pb-12">
