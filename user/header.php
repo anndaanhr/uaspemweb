@@ -26,7 +26,7 @@
                             <a href="logout.php" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-50">Keluar</a>
                         </div>
                     <?php else: ?>
-                        <a href="login.php"
+                        <a href="index.php"
                             class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Masuk</a>
                     <?php endif; ?>
                 </div>
@@ -60,7 +60,7 @@
                         <a href="logout.php"
                             class="w-full block text-center border border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 transition">Keluar</a>
                     <?php else: ?>
-                        <a href="login.php"
+                        <a href="index.php"
                             class="w-full block text-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Masuk</a>
                     <?php endif; ?>
                 </div>
