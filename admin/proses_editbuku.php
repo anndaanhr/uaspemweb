@@ -1,6 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+$username = "";
+if (isset($_SESSION['admin'])) {
+    $username = $_SESSION['admin'];
+} else {
     header('Location: index.php');
     exit;
 }
@@ -8,14 +11,14 @@ if (!isset($_SESSION['username'])) {
 include '../connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id             = intval($_POST['id']);
-    $title          = mysqli_real_escape_string($conn, $_POST['title']);
-    $author         = mysqli_real_escape_string($conn, $_POST['author']);
-    $genre          = mysqli_real_escape_string($conn, $_POST['genre']);
-    $isbn           = mysqli_real_escape_string($conn, $_POST['isbn']);
+    $id = intval($_POST['id']);
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $author = mysqli_real_escape_string($conn, $_POST['author']);
+    $genre = mysqli_real_escape_string($conn, $_POST['genre']);
+    $isbn = mysqli_real_escape_string($conn, $_POST['isbn']);
     $published_year = intval($_POST['published_year']);
-    $total_copies   = intval($_POST['total_copies']);
-    $description    = mysqli_real_escape_string($conn, $_POST['description']);
+    $total_copies = intval($_POST['total_copies']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
     // Ambil data buku sebelumnya
     $query_old = "SELECT cover_image FROM books WHERE id = $id";
@@ -27,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Jika ada file baru diupload
     if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
-        $fileTmp  = $_FILES['cover_image']['tmp_name'];
+        $fileTmp = $_FILES['cover_image']['tmp_name'];
         $fileName = basename($_FILES['cover_image']['name']);
-        $fileExt  = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowed  = ['jpg', 'jpeg', 'png', 'gif'];
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
         if (in_array($fileExt, $allowed)) {
             $newFileName = uniqid() . '.' . $fileExt;
