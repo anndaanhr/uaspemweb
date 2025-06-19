@@ -1,3 +1,20 @@
+<?php
+session_start();
+include '../connection.php';
+
+// Ambil id buku dari URL
+$book_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$book = null;
+if ($book_id > 0) {
+    $stmt = mysqli_prepare($conn, "SELECT * FROM books WHERE id = ?");
+    mysqli_stmt_bind_param($stmt, 'i', $book_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $book = mysqli_fetch_assoc($result);
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,23 +31,25 @@
    <!-- Header -->
     <?php include 'header.php'; ?>
 
-
     <!-- Bagian Detail Buku -->
     <div class="pt-24 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <?php if ($book): ?>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
                     <!-- Gambar Buku -->
                     <div class="col-span-1">
-                        <img id="book-cover" src="images/moon.jpg" alt="Sampul Buku" class="w-full rounded-lg shadow-md">
+                        <img id="book-cover" src="../images/<?= htmlspecialchars($book['cover_image']) ?>" alt="Sampul Buku" class="w-full rounded-lg shadow-md">
                         <div class="mt-6 space-y-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-600">Status:</span>
-                                <span id="availability-badge" class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">Tersedia</span>
+                                <span id="availability-badge" class="px-3 py-1 rounded-full text-sm font-medium <?= $book['available_copies'] > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' ?>">
+                                    <?= $book['available_copies'] > 0 ? 'Tersedia' : 'Tidak Tersedia' ?>
+                                </span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-600">Eksemplar:</span>
-                                <span id="book-copies">3/5 tersedia</span>
+                                <span id="book-copies"><?= $book['available_copies'] ?>/<?= $book['total_copies'] ?> tersedia</span>
                             </div>
                             <button class="borrow-btn w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Pinjam Buku</button>
                             <div class="borrow-message hidden mt-4 p-4 rounded-md"></div>
@@ -39,75 +58,37 @@
 
                     <!-- Informasi Buku -->
                     <div class="col-span-2">
-                        <h1 id="book-title" class="text-3xl font-bold text-gray-900 mb-4 font-['Playfair_Display']">Bulan</h1>
+                        <h1 id="book-title" class="text-3xl font-bold text-gray-900 mb-4 font-['Playfair_Display']"><?= htmlspecialchars($book['title']) ?></h1>
                         <div class="space-y-4">
                             <div>
                                 <span class="text-gray-600">Penulis:</span>
-                                <span id="book-author" class="ml-2 font-medium">Tere Liye</span>
+                                <span id="book-author" class="ml-2 font-medium"><?= htmlspecialchars($book['author']) ?></span>
                             </div>
                             <div>
                                 <span class="text-gray-600">Genre:</span>
-                                <span id="book-genre" class="ml-2">Fiksi</span>
+                                <span id="book-genre" class="ml-2"><?= htmlspecialchars($book['genre']) ?></span>
                             </div>
                             <div>
                                 <span class="text-gray-600">ISBN:</span>
-                                <span id="book-isbn" class="ml-2">978-602-03-3496-3</span>
+                                <span id="book-isbn" class="ml-2"><?= htmlspecialchars($book['isbn']) ?></span>
                             </div>
                             <div>
                                 <span class="text-gray-600">Terbit:</span>
-                                <span id="book-published" class="ml-2">2015</span>
+                                <span id="book-published" class="ml-2"><?= htmlspecialchars($book['published_year']) ?></span>
                             </div>
                             <div>
                                 <h2 class="text-xl font-semibold mb-2">Deskripsi</h2>
                                 <p id="book-description" class="text-gray-600 leading-relaxed">
-                                    "Bulan" adalah buku kedua dari seri fantasi remaja karya Tere Liye. Cerita ini mengikuti petualangan seorang gadis muda bernama Seli dan teman-temannya saat mereka menjelajahi dunia magis dan menghadapi tantangan luar biasa. Kisah mempesona ini menggabungkan elemen persahabatan, keberanian, dan penemuan jati diri.
+                                    <?= nl2br(htmlspecialchars($book['description'])) ?>
                                 </p>
                             </div>
                         </div>
-
-                        <!-- Peringkat dan Ulasan -->
-                        <div class="mt-8">
-                            <h2 class="text-xl font-semibold mb-4">Peringkat & Ulasan</h2>
-                            <div class="flex items-center mb-4">
-                                <div class="flex items-center">
-                                    <!-- Bintang Peringkat (contoh) -->
-                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                    <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                </div>
-                                <span class="ml-2 text-gray-600">4.0 dari 5 (125 ulasan)</span>
-                            </div>
-
-                            <!-- Daftar Ulasan -->
-                            <div class="space-y-6">
-                                <div class="border-t pt-6">
-                                    <div class="flex items-start">
-                                        <div class="flex-shrink-0">
-                                            <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                                <span class="text-gray-600">AS</span> <!-- Inisial Nama Pengulas -->
-                                            </div>
-                                        </div>
-                                        <div class="ml-4">
-                                            <h4 class="text-sm font-medium text-gray-900">Andi Setiawan</h4>
-                                            <div class="flex items-center mt-1">
-                                                <div class="flex items-center">
-                                                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                                </div>
-                                                <span class="ml-2 text-sm text-gray-500">5.0</span>
-                                            </div>
-                                            <p class="mt-2 text-sm text-gray-600">
-                                                Buku yang luar biasa, membuat saya terpikat sepanjang cerita. Pengembangan karakternya sangat baik dan ceritanya ditulis dengan sangat apik.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Tambah ulasan lain jika perlu -->
-                            </div>
-                        </div>
+                        <!-- Peringkat dan Ulasan (dummy) DIHAPUS -->
                     </div>
                 </div>
+                <?php else: ?>
+                <div class="p-12 text-center text-xl text-gray-600">Buku tidak ditemukan.</div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

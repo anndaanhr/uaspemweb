@@ -67,56 +67,7 @@ if (typingElement) {
 }
 
 // ========== DETAIL BUKU ========== 
-const booksData = {
-    bulan: {
-        title: "Bulan",
-        author: "Tere Liye",
-        genre: "Fiksi",
-        isbn: "978-602-03-3496-3",
-        published: "2015",
-        description: "\"Bulan\" adalah buku kedua dari seri fantasi remaja karya Tere Liye...",
-        cover: "images/moon.jpg",
-        availableCopies: 3,
-        totalCopies: 5,
-        status: "Tersedia"
-    },
-    hujan: {
-        title: "Hujan",
-        author: "Tere Liye",
-        genre: "Fiksi",
-        isbn: "978-602-03-2478-4",
-        published: "2016",
-        description: "Novel \"Hujan\" mengisahkan tentang Esok dan Lail...",
-        cover: "images/hujan.jpg",
-        availableCopies: 2,
-        totalCopies: 5,
-        status: "Dipesan"
-    },
-    matahari: {
-        title: "Matahari",
-        author: "Tere Liye",
-        genre: "Fiksi",
-        isbn: "978-602-03-3211-2",
-        published: "2016",
-        description: "\"Matahari\" melanjutkan petualangan Raib, Seli, dan Ali...",
-        cover: "images/matahari.jpg",
-        availableCopies: 0,
-        totalCopies: 5,
-        status: "Tidak Tersedia"
-    },
-    crypto: {
-        title: "Panduan Trading Crypto",
-        author: "Akademi Crypto",
-        genre: "Bisnis",
-        isbn: "978-123-45-6789-0",
-        published: "2023",
-        description: "Panduan lengkap bagi pemula tentang trading crypto...",
-        cover: "images/crypto-trading.jpg",
-        availableCopies: 4,
-        totalCopies: 5,
-        status: "Tersedia"
-    }
-};
+// const booksData = { ... } // DINONAKTIFKAN, SUDAH PAKAI BACKEND PHP
 
 // ========== BOOK LISTING & FILTERING (books.html) ==========
 const bookGridContainer = document.getElementById('book-grid-container');

@@ -1,4 +1,4 @@
-<header class="bg-white shadow-lg fixed w-full z-50">
+<header class="bg-white bg-opacity-60 backdrop-blur-md fixed w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <!-- Logo -->
